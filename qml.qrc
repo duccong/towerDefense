@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Tower.qml</file>
+        <file>DropItem.qml</file>
+        <file>Board.qml</file>
+        <file>test.qml</file>
+        <file>Target.qml</file>
+        <file>logic.js</file>
+    </qresource>
+</RCC>
