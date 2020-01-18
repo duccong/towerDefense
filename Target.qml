@@ -69,18 +69,7 @@ Rectangle {
 
         }
     ]
-    function onHited(i){
-        console.log("onHited")
-        life--;
-        if (life < 9) {
-            console.log("onDestroyed")
-//            _rec.visible = false
-//            console.log("nowState:"+_rec.stateTarget)
-            _rec.stateTarget = "IDLE";
-//            console.log("ToState:"+_rec.stateTarget)
-            _rec.destroy();
-        }
-    }
+
     Text {
         id: _text
         text: life
@@ -90,6 +79,20 @@ Rectangle {
         verticalAlignment: Text.AlignVCenter
         font.pixelSize:20
         color: "WHITE"
+    }
+
+    function onHited(i){
+        console.log("onHited")
+        life--;
+        if (life < 9) {
+            console.log("onDestroyed")
+//            _rec.visible = false
+//            console.log("nowState:"+_rec.stateTarget)
+            _rec.stateTarget = "IDLE";
+//            console.log("ToState:"+_rec.stateTarget)
+
+//            _rec.destroy();
+        }
     }
 
 }

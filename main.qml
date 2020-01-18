@@ -100,7 +100,8 @@ Window {
         toPoint: _root.toPoint
         visible: false
         Component.onCompleted: {
-            targetAttack[0] = target
+//            targetAttack[0] = target
+              targetAttack.push(target)
         }
     }
 

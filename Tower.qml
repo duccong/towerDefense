@@ -142,8 +142,12 @@ Item {
                                 }
 
 //                                console.log("targetAttack[0]:"+targetAttack[0] )
-                                console.log("targetAttack[]:"+targetAttack.length )
-                                console.log("objName:"+targetAttack[0].objectName )
+                                console.log("targetAttackLength:"+targetAttack.length )
+                                console.log("objName:"+targetAttack[0].life )
+                                if (targetAttack[0].life === 1) {
+                                    targetAttack.pop();
+                                }
+
                                 targetAttack[0].onHited(1);
                             }
                         }
@@ -182,7 +186,7 @@ Item {
 //                return
 //            }
 
-            if (targetAttack[0].visible){
+            if (targetAttack.length > 0){
                 var towerX = _rootItem.col * 30 + 30/2 // board.sizeCell = 30
                 var towerY = _rootItem.row * 30 + 30/2
                 var _recX = targetAttack[0].x + 30/2 // target.size/2
