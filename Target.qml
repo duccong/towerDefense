@@ -84,7 +84,7 @@ Rectangle {
     function onHited(i){
         console.log("onHited")
         life--;
-        if (life < 9) {
+        if (life < 1) {
             console.log("onDestroyed")
 //            _rec.visible = false
 //            console.log("nowState:"+_rec.stateTarget)

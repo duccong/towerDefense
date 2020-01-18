@@ -145,10 +145,14 @@ Item {
                                 console.log("targetAttackLength:"+targetAttack.length )
                                 console.log("objName:"+targetAttack[0].life )
                                 if (targetAttack[0].life === 1) {
+                                    targetAttack[0].onHited(1);
+                                    // destroy target
                                     targetAttack.pop();
+                                } else {
+                                    targetAttack[0].onHited(1);
                                 }
 
-                                targetAttack[0].onHited(1);
+
                             }
                         }
                     }
@@ -200,6 +204,9 @@ Item {
                 } else {
                     _rootItem.isAtt = false
                 }
+            } else {
+                _rootItem.isAtt = false
+                mouseArea.state = "READY"
             }
         }
     }
