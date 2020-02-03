@@ -24,6 +24,7 @@ public:
     void setWidthPen(const int &width);
 
 Q_INVOKABLE void addToPainterPath(QPoint point,QString cmd);
+Q_INVOKABLE void addTarget();
 signals:
     void colorChanged();
     void widthPenChanged();
@@ -31,6 +32,8 @@ private:
     QColor mColor;
     int mWidthPen;
     QPainterPath mPainterPath;
+
+
 
 };
 

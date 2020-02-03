@@ -186,6 +186,7 @@ Item {
         id: mainTime
         interval: 50 ; running: posOnBoard !== undefined; repeat: true
         onTriggered: {
+//            console.log("mainTime Tower")
 //            if (!isAtt){
 //                return
 //            }
@@ -197,7 +198,7 @@ Item {
                 var _recY = targetAttack[0].y + 30/2
 
                 var distance = MathFunctions.calDistance(towerX,towerY,_recX,_recY);
-
+                console.log("distance from Tower: " + distance)
                 if (distance <100 ){
                     _rootItem.targetPos = Qt.point(targetAttack[0].x - towerX + 30. , targetAttack[0].y -towerY + 30)
                     _rootItem.isAtt = true

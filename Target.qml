@@ -10,6 +10,7 @@ Rectangle {
     property int life: 10
     property var toPoint: undefined
     property string stateTarget: "IDLE"
+    property int posInPath: 0
     //    x: _rec.x
     //    y: _rec.y
     onToPointChanged: {

@@ -56,5 +56,10 @@ void DrawScreen::addToPainterPath(QPoint point,QString cmd)
 //        mPainterPath.moveTo(point);
     }
     update();
-//    mPainterPath
+    //    mPainterPath
+}
+
+void DrawScreen::addTarget()
+{
+    qDebug()<<"DrawScreen::addTarget";
 }
