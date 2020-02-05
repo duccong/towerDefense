@@ -17,6 +17,16 @@ Window {
 
     property var tower : []
     property var targetAttack : []
+    property var dataTargetAttack : []
+    //    TODO: Test
+    //    Begin Test
+    ListModel {
+        id: testList
+//        ListElement { type: "1"; life :10; iPos: 0 }
+//        ListElement { name: "2"; life :9; iPos: 15 }
+    }
+    //    End Test
+
 
     DrawScreen {
         id: drawScreen
@@ -37,8 +47,8 @@ Window {
                 startPoint = Qt.point(mouseArea.mouseX,mouseArea.mouseY)
                 console.log("START-POINT:" + startPoint)
                 drawScreen.addToPainterPath(startPoint,"startPoint")
-//                target.stateTarget = "IDLE"
-//                target.life = 10;
+                //                target.stateTarget = "IDLE"
+                //                target.life = 10;
                 path = []
             }
             onReleased: {
@@ -48,9 +58,9 @@ Window {
                 drawScreen.addToPainterPath(endPoint,"endPoint")
                 toPoint = path[1] !== undefined ? path[1] : Qt.point(0,0)
 
-//                target.stateTarget = "RUNNING"
-//                timeRun.start()
-//                targetAttack.push(target)
+                //                target.stateTarget = "RUNNING"
+                //                timeRun.start()
+                //                targetAttack.push(target)
                 //                timeRun.index = 0
 
             }
@@ -94,35 +104,39 @@ Window {
     }
 
 
-//    Target {
-//        id: target
-//        objectName: "target"
-//        timeRunning: timeRunning
-//        size: size
-//        startPoint: _root.startPoint
-//        toPoint: _root.toPoint
-//        visible: false
-//        Component.onCompleted: {
-//            //            targetAttack[0] = target
-//            targetAttack.push(target)
-//        }
-//    }
+    //    Target {
+    //        id: target
+    //        objectName: "target"
+    //        timeRunning: timeRunning
+    //        size: size
+    //        startPoint: _root.startPoint
+    //        toPoint: _root.toPoint
+    //        visible: false
+    //        Component.onCompleted: {
+    //            //            targetAttack[0] = target
+    //            targetAttack.push(target)
+    //        }
+    //    }
 
     Item {
         anchors.fill: board
         Repeater {
             id: lsTarget
-            model: 0
+            model: testList
             delegate: Target {
                 id: targetInlist
                 timeRunning: timeRunning
                 size: size
                 startPoint: _root.startPoint
                 toPoint: _root.startPoint
-//                visible: true
+                life: model.life
+                posInPath: model.iPos
+                name: model.type
+                //                visible: true
                 stateTarget:"IDLE"
-//                posInPath: 0
+                //                posInPath: 0
                 Component.onCompleted: {
+//                    console.log("modelData: " + model.life)
                     targetAttack.push(targetInlist)
                 }
             }
@@ -132,15 +146,15 @@ Window {
 
 
     Timer {
-//
+        //
         id: timeRun
-        interval: 200 ; running: false; repeat: true
+        interval: 50 ; running: false; repeat: true
         onTriggered: {
             console.log("Path.length: " + path.length)
             for (var i = 0 ; i < targetAttack.length ; i ++){
 
                 var onTarget = targetAttack[i];
-//                onTarget.posInPath ++;
+                //                onTarget.posInPath ++;
                 var index = onTarget.posInPath;
                 if (index === undefined) {
                     onTarget.posInPath = 0;
@@ -148,32 +162,33 @@ Window {
                     continue
                 }
 
-//                onTarget.life = 10;
+                //                onTarget.life = 10;
 
                 if (onTarget.life < 1) {
                     console.log("target: " + onTarget)
                     onTarget.stateTarget = "IDLE"
-                    timeRun.stop()
+//                    timeRun.stop()
                     return
                 }
                 console.log("target: " + i)
                 console.log("posInPath:" + index )
                 if (index < path.length){
                     onTarget.toPoint = path[index]
-//                    console.log("posInPath: " + index)
-//                    console.log("target: " + i)
+                    //                    console.log("posInPath: " + index)
+                    //                    console.log("target: " + i)
                     //                console.log("toPoint: x: " + toPoint.x + " - y: "+toPoint.y)
                     onTarget.posInPath++;
                     onTarget.stateTarget = "RUNNING"
                     onTarget.visible = true
                 } else {
-//                    onTarget.posInPath = 0;
+                    //                    onTarget.posInPath = 0;
                     if ((onTarget.toPoint.x < startPoint.x +5) && (toPoint.x > startPoint.x -5)
                             && (onTarget.toPoint.y < startPoint.y +5) && (onTarget.toPoint.y > startPoint.y-5)){
                         // repeat loop
+                        onTarget.posInPath =0;
                     } else {
                         // stop
-//                        timeRun.stop()
+//                                                timeRun.stop()
                     }
                 }
             }
@@ -192,8 +207,10 @@ Window {
             onClicked: {
                 console.log("onClicked")
                 drawScreen.addTarget();
-                lsTarget.model = lsTarget.count + 1
-                timeRun.start();
+//                lsTarget.model = lsTarget.count + 1
+                testList.append({"type": testList.count, "life" : 5, "iPos":0})
+//                if (!timeRun.running)
+                    timeRun.restart();
             }
         }
     }

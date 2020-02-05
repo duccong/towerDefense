@@ -11,6 +11,7 @@ Rectangle {
     property var toPoint: undefined
     property string stateTarget: "IDLE"
     property int posInPath: 0
+    property string name: "--"
     //    x: _rec.x
     //    y: _rec.y
     onToPointChanged: {
@@ -83,7 +84,8 @@ Rectangle {
     }
 
     function onHited(i){
-        console.log("onHited")
+        console.log("onHited: " + name)
+
         life--;
         if (life < 1) {
             console.log("onDestroyed")
