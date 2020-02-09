@@ -130,8 +130,10 @@ Window {
                         console.log("onRemove: " + index)
                         showTargetAttack();
 //                        console.log("onRemove: lsTargetModel: " + lsTargetModel.count)
+                        targetAttack.splice(index,1); // remove before object of list was removed
                         lsTargetModel.remove(index);
-                        showTargetAttack();
+
+//                        showTargetAttack();
 
 
                     }
