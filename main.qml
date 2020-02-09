@@ -17,11 +17,11 @@ Window {
 
     property var tower : []
     property var targetAttack : []
-    property var dataTargetAttack : []
+//    property var dataTargetAttack : []
     //    TODO: Test
     //    Begin Test
     ListModel {
-        id: testList
+        id: lsTargetModel
 //        ListElement { type: "1"; life :10; iPos: 0 }
 //        ListElement { name: "2"; life :9; iPos: 15 }
     }
@@ -104,25 +104,12 @@ Window {
     }
 
 
-    //    Target {
-    //        id: target
-    //        objectName: "target"
-    //        timeRunning: timeRunning
-    //        size: size
-    //        startPoint: _root.startPoint
-    //        toPoint: _root.toPoint
-    //        visible: false
-    //        Component.onCompleted: {
-    //            //            targetAttack[0] = target
-    //            targetAttack.push(target)
-    //        }
-    //    }
-
     Item {
+        id: targetOnBoard
         anchors.fill: board
         Repeater {
             id: lsTarget
-            model: testList
+            model: lsTargetModel
             delegate: Target {
                 id: targetInlist
                 timeRunning: timeRunning
@@ -132,25 +119,55 @@ Window {
                 life: model.life
                 posInPath: model.iPos
                 name: model.type
-                //                visible: true
+                speed: model.speed === "" ? 1 : model.speed
                 stateTarget:"IDLE"
-                //                posInPath: 0
+                onStateChanged: {
+                    if (state == "DEAD"){
+                        // destroy target
+
+//                        console.log("targetAttch: " + _root.targetAttack)
+//                        targetAttack.splice(index,1);
+                        console.log("onRemove: " + index)
+                        showTargetAttack();
+//                        console.log("onRemove: lsTargetModel: " + lsTargetModel.count)
+                        lsTargetModel.remove(index);
+                        showTargetAttack();
+
+
+                    }
+                }
+
                 Component.onCompleted: {
-//                    console.log("modelData: " + model.life)
+                    console.log("onCompleted")
                     targetAttack.push(targetInlist)
+//                    for (var i = 0 ; i <  targetAttack.length ; i++) {
+//                        console.log("target: " + i + " speed: " +speed)
+//                    }
                 }
             }
         }
 
     }
 
+     function showTargetAttack() {
+         console.log("lsTargetModel: " +lsTargetModel.count)
+        for (var i1 = 0 ; i1 < lsTargetModel.count ; i1++) {
+            console.log("target: " + i1 + " speed: " +lsTargetModel.get(i1).speed)
+        }
+         console.log("showTargetAttack:" + targetAttack.length)
+        for (var i = 0 ; i < targetAttack.length ; i++) {
+            console.log("target: " + i + " speed: " +targetAttack[i].speed)
+        }
+    }
+
 
     Timer {
         //
         id: timeRun
-        interval: 50 ; running: false; repeat: true
+        interval: 50 ; running: lsTargetModel.count > 0; repeat: true
         onTriggered: {
-            console.log("Path.length: " + path.length)
+//            console.log("Path.length: " + path.length)
+//            console.log("lsTargetModel.length: " + lsTargetModel.count)
             for (var i = 0 ; i < targetAttack.length ; i ++){
 
                 var onTarget = targetAttack[i];
@@ -161,23 +178,15 @@ Window {
                     onTarget.toPoint = startPoint
                     continue
                 }
-
-                //                onTarget.life = 10;
-
-                if (onTarget.life < 1) {
-                    console.log("target: " + onTarget)
-                    onTarget.stateTarget = "IDLE"
-//                    timeRun.stop()
-                    return
-                }
-                console.log("target: " + i)
-                console.log("posInPath:" + index )
-                if (index < path.length){
+//                console.log("target: " + i)
+//                console.log("posInPath:" + index )
+                if (index < path.length-1){
+                    index = (index + onTarget.speed) > (path.length -1) ? path.length-1 : (index + onTarget.speed)
                     onTarget.toPoint = path[index]
                     //                    console.log("posInPath: " + index)
                     //                    console.log("target: " + i)
                     //                console.log("toPoint: x: " + toPoint.x + " - y: "+toPoint.y)
-                    onTarget.posInPath++;
+                    onTarget.posInPath = index;
                     onTarget.stateTarget = "RUNNING"
                     onTarget.visible = true
                 } else {
@@ -205,12 +214,17 @@ Window {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                console.log("onClicked")
-                drawScreen.addTarget();
-//                lsTarget.model = lsTarget.count + 1
-                testList.append({"type": testList.count, "life" : 5, "iPos":0})
-//                if (!timeRun.running)
-                    timeRun.restart();
+                console.log("onClicked to Add target")
+                if (path.length > 0) {
+                    var speed = Math.round(Math.random()*10%4)+1;
+//                    var speed = 1;
+                   lsTargetModel.append({"type": lsTargetModel.count, "life" : speed, "iPos":0,"speed" : speed})
+                } else {
+                    console.log("Path for Target running not ready")
+                }
+
+
+//                timeRun.restart();
             }
         }
     }

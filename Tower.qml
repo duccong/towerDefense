@@ -145,13 +145,13 @@ Item {
                                 //                                console.log("targetAttack[0]:"+targetAttack[0] )
                                 console.log("targetIndex:"+targetIndex )
                                 console.log("objName:"+targetAttack[targetIndex].name )
-                                if (targetAttack[targetIndex].life === 1) {
+//                                if (targetAttack[targetIndex].life === 1) {
                                     targetAttack[targetIndex].onHited(1);
                                     // destroy target
-                                    targetAttack.shift();
-                                } else {
-                                    targetAttack[targetIndex].onHited(1);
-                                }
+//                                    targetAttack.shift();
+//                                } else {
+//                                    targetAttack[targetIndex].onHited(1);
+//                                }
 
 
                             }
@@ -193,8 +193,8 @@ Item {
                 var towerY = _rootItem.row * 30 + 30/2
                 var checkAtt = false;
                 for (var i =0; i<targetAttack.length;i++){
-                    console.log("targetAttack[i]: " + i)
-                     console.log("targetAttack[i].state " + targetAttack[i].state)
+//                    console.log("targetAttack[i]: " + i)
+//                     console.log("targetAttack[i].state " + targetAttack[i].state)
                     if (targetAttack[i].state !== "RUNNING"){
                         continue;
                     }
@@ -208,9 +208,9 @@ Item {
                         _rootItem.targetPos = Qt.point(targetAttack[i].x - towerX + 30. , targetAttack[i].y -towerY + 30)
                         checkAtt = true
 //                        _rootItem.isAtt = true
-                        console.log("SET: targetIndex: " + i)
+//                        console.log("SET: targetIndex: " + i)
                         targetIndex = i;
-                        console.log("BREAK: Target: " + i + "distance from Tower: " + distance)
+//                        console.log("BREAK: Target: " + i + "distance from Tower: " + distance)
 
                         break;
                     } else {

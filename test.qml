@@ -1,7 +1,7 @@
 import QtQuick 2.0
 //test
 Item {
-    Rectangle {
+ /*   Rectangle {
         width: 75; height: 75
         id: button
         state: "RELEASED"
@@ -54,11 +54,11 @@ Item {
                         // repeat loop
                     } else {
                         // stop
-                        timeRun.stop()
+//                        timeRun.stop()
                     }
                 }
 
             }
         }
-    }
+    }*/
 }

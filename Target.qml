@@ -12,16 +12,14 @@ Rectangle {
     property string stateTarget: "IDLE"
     property int posInPath: 0
     property string name: "--"
-    //    x: _rec.x
-    //    y: _rec.y
+    property int speed: 1
+
     onToPointChanged: {
-//        console.log("Target::onToPointChanged" + toPoint.x + ","+toPoint.y)
     }
+
     onStateTargetChanged: {
         console.log("Target::onStateTargetChanged" + stateTarget)
     }
-
-//    property int size: 40
 
     x: startPoint == undefined ? 0-size/2 : startPoint.x-size/2
     y: startPoint == undefined ? 0-size/2 : startPoint.y-size/2
@@ -39,8 +37,6 @@ Rectangle {
                 target: _rec;
                 color: "RED"
                 visible: false
-                //                    x: startPoint == undefined ? 0 : startPoint.x
-                //                    y: startPoint == undefined ? 0 : startPoint.y
             }
         },
         State {
@@ -85,16 +81,10 @@ Rectangle {
 
     function onHited(i){
         console.log("onHited: " + name)
-
         life--;
         if (life < 1) {
             console.log("onDestroyed")
-//            _rec.visible = false
-//            console.log("nowState:"+_rec.stateTarget)
-            _rec.stateTarget = "IDLE";
-//            console.log("ToState:"+_rec.stateTarget)
-
-//            _rec.destroy();
+            _rec.stateTarget = "DEAD";
         }
     }
 
