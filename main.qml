@@ -3,6 +3,8 @@ import QtQuick.Window 2.2
 import DrawScreen 1.0
 import QtPositioning 5.0
 import "logic.js" as MathFunctions
+import OpenGL 1.0
+
 Window {
     id: _root
     visible: true
@@ -231,4 +233,7 @@ Window {
         }
     }
 
+    HelloTriangle {
+
+    }
 }
